@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, } from "react-router-dom";
 import './App.css';
+import RefactorDirectory from './pages/refactorDirectory';
+import Home from './pages/home';
+import UploadFiles from './pages/uploadFiles';
+import Navbar from './components/navbar';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -11,17 +16,24 @@ function App() {
       window.api.receive('fromMain', (data) => {
         setMessage(data);
       });
-      
+
       // Send a message to main process
       window.api.send('toMain', 'Hello from React!');
     }
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className='font-arial font-bold text-[100px] text-blue-900 flex justify-center '>Orbix Lab</div>        
-      </header>
+    <div className="">
+
+      {/* navbar */}
+      <Navbar />
+
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/refactor-directory" element={<RefactorDirectory />} />
+        <Route path="/upload-files" element={<UploadFiles />} />
+      </Routes>
     </div>
   );
 }
